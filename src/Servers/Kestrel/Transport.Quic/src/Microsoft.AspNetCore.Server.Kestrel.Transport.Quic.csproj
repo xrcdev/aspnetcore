@@ -14,7 +14,6 @@
     <Compile Include="$(RepoRoot)src\Shared\Buffers.MemoryPool\*.cs" LinkBase="MemoryPool" />
     <Compile Include="$(KestrelSharedSourceRoot)\CorrelationIdGenerator.cs" Link="Internal\CorrelationIdGenerator.cs" />
     <Compile Include="$(SharedSourceRoot)ServerInfrastructure\DuplexPipe.cs" Link="Internal\DuplexPipe.cs" />
-    <Compile Include="$(KestrelSharedSourceRoot)\DuplexPipe.cs" Link="Internal\DuplexPipe.cs" />
     <Compile Include="$(KestrelSharedSourceRoot)\TransportStream.cs" Link="Internal\TransportStream.cs" />
     <Compile Include="$(KestrelSharedSourceRoot)\TransportStream.Generated.cs" Link="Internal\TransportStream.Generated.cs" />
     <Compile Include="$(KestrelSharedSourceRoot)\TransportStream.FeatureCollection.cs" Link="Internal\TransportStream.FeatureCollection.cs" />
