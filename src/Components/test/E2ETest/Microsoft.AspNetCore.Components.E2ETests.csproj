@@ -12,6 +12,7 @@
     <SkipTests Condition="'$(SeleniumE2ETestsSupported)' == 'true'">false</SkipTests>
     
     <GenerateLoggingTestingAssemblyAttributes>false</GenerateLoggingTestingAssemblyAttributes>
+    <TestDependsOnNode>true</TestDependsOnNode>
   </PropertyGroup>
 
   <ItemGroup>
