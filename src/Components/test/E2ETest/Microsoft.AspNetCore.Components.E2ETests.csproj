@@ -55,7 +55,7 @@
   </Target>
    
   <ItemGroup>
-    <HelixPreCommand Include="call npm.cmd i yarn;call node_modules\.bin\yarn install" />
+    <HelixPreCommand Include="call npm.cmd i yarn;call yarn install" />
     <HelixContent Include="package.json" />
     <HelixContent Include="yarn.lock" />
     <!-- This is currently windows only -->
