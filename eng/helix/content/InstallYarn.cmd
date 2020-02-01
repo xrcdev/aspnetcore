@@ -1,3 +1,3 @@
 set PATH=%PATH%;.\jdk\bin
-npm.cmd i yarn
-yarn install
+call npm.cmd i yarn
+call yarn install
