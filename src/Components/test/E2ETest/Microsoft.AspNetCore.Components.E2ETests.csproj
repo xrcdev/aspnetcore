@@ -13,6 +13,7 @@
     
     <GenerateLoggingTestingAssemblyAttributes>false</GenerateLoggingTestingAssemblyAttributes>
     <TestDependsOnNode>true</TestDependsOnNode>
+    <TestDependsOnJava>true</TestDependsOnJava>
     <TestDependsOnYarn>true</TestDependsOnYarn>
   </PropertyGroup>
 
