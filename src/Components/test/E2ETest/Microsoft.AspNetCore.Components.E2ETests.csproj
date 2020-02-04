@@ -59,6 +59,7 @@
   <ItemGroup>
     <HelixContent Include="package.json" />
     <HelixContent Include="yarn.lock" />
+    <HelixContent Include="..\..\..\Shared\E2ETesting\selenium-config.json" />
     <!-- This is currently windows only -->
     <HelixProjectPlatform Remove="Linux;OSX" />
   </ItemGroup>
