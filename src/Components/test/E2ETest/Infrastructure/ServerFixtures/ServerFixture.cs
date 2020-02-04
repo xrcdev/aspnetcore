@@ -40,17 +40,15 @@ namespace Microsoft.AspNetCore.Components.E2ETest.Infrastructure.ServerFixtures
 
         protected static string FindSampleOrTestSitePath(string projectName)
         {
+            if (!string.IsNullOrEmpty(Environment.GetEnvironmentVariable("helix")))
+            {
+                return Path.Combine(AppContext.BaseDirectory, "testassets", projectName);
+            }
+        
             var projects = _projects.Value;
             if (projects.TryGetValue(projectName, out var dir))
             {
-                if (!string.IsNullOrEmpty(Environment.GetEnvironmentVariable("helix")))
-                {
-                    return Path.Combine(AppContext.BaseDirectory, dir);
-                }
-                else
-                {
-                    return dir;
-                }
+                return dir;
             }
 
             throw new ArgumentException($"Cannot find a sample or test site with name '{projectName}'.");
