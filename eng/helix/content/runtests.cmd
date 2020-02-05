@@ -22,6 +22,8 @@ powershell.exe -NoProfile -ExecutionPolicy unrestricted -Command "[Net.ServicePo
 
 set HELIX=%helixQueue%
 
+dir /s
+
 if (%targetFrameworkIdentifier%==.NETFramework) (
     xunit.console.exe %target% -xml testResults.xml
     exit /b %ERRORLEVEL%
