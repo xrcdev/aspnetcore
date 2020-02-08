@@ -21,6 +21,8 @@ namespace Microsoft.AspNetCore.Blazor.Hosting
     /// </summary>
     public sealed class WebAssemblyHostBuilder
     {
+        private Func<IServiceProvider> _createServiceProvider;
+
         /// <summary>
         /// Creates an instance of <see cref="WebAssemblyHostBuilder"/> using the most common
         /// conventions and settings.
@@ -54,6 +56,11 @@ namespace Microsoft.AspNetCore.Blazor.Hosting
             Services = new ServiceCollection();
 
             InitializeDefaultServices();
+
+            _createServiceProvider = () =>
+            {
+                return Services.BuildServiceProvider();
+            };
         }
 
         /// <summary>
@@ -73,6 +80,45 @@ namespace Microsoft.AspNetCore.Blazor.Hosting
         public IServiceCollection Services { get; }
 
         /// <summary>
+        /// Registers a <see cref="IServiceProviderFactory{TBuilder}" /> instance to be used to create the <see cref="IServiceProvider" />.
+        /// </summary>
+        /// <param name="factory">The <see cref="IServiceProviderFactory{TBuilder}" />.</param>
+        /// <typeparam name="TBuilder">The type of builder provided by the <see cref="IServiceProviderFactory{TBuilder}" />.</typeparam>
+        public void ConfigureContainer<TBuilder>(IServiceProviderFactory<TBuilder> factory)
+        {
+            if (factory == null)
+            {
+                throw new ArgumentNullException(nameof(factory));
+            }
+
+            ConfigureContainer(factory, configure: null);
+        }
+
+        /// <summary>
+        /// Registers a <see cref="IServiceProviderFactory{TBuilder}" /> instance to be used to create the <see cref="IServiceProvider" />.
+        /// </summary>
+        /// <param name="factory">The <see cref="IServiceProviderFactory{TBuilder}" />.</param>
+        /// <param name="configure">
+        /// A delegate used to configure the <typeparamref T="TBuilder" />. This can be used to configure services using
+        /// APIS specific to the <see cref="IServiceProviderFactory{TBuilder}" /> implementation.
+        /// </param>
+        /// <typeparam name="TBuilder">The type of builder provided by the <see cref="IServiceProviderFactory{TBuilder}" />.</typeparam>
+        public void ConfigureContainer<TBuilder>(IServiceProviderFactory<TBuilder> factory, Action<TBuilder> configure)
+        {
+            if (factory == null)
+            {
+                throw new ArgumentNullException(nameof(factory));
+            }
+
+            _createServiceProvider = () =>
+            {
+                var container = factory.CreateBuilder(Services);
+                configure?.Invoke(container);
+                return factory.CreateServiceProvider(container);
+            };
+        }
+
+        /// <summary>
         /// Builds a <see cref="WebAssemblyHost"/> instance based on the configuration of this builder.
         /// </summary>
         /// <returns>A <see cref="WebAssemblyHost"/> object.</returns>
@@ -85,7 +131,7 @@ namespace Microsoft.AspNetCore.Blazor.Hosting
             // A Blazor application always runs in a scope. Since we want to make it possible for the user
             // to configure services inside *that scope* inside their startup code, we create *both* the
             // service provider and the scope here.
-            var services = Services.BuildServiceProvider();
+            var services = _createServiceProvider();
             var scope = services.GetRequiredService<IServiceScopeFactory>().CreateScope();
 
             return new WebAssemblyHost(services, scope, configuration, RootComponents.ToArray());
