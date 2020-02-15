@@ -9,6 +9,9 @@
     <NuspecFile Condition="'$(DotNetBuildFromSource)' == 'true'">$(MSBuildProjectName).netcoreapp.nuspec</NuspecFile>
     <IsPackable>true</IsPackable>
     <IsShipping>true</IsShipping>
+    <IsAspNetCoreApp>true</IsAspNetCoreApp>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <PackageTags>files;filesystem</PackageTags>
   </PropertyGroup>
 
   <ItemGroup>
