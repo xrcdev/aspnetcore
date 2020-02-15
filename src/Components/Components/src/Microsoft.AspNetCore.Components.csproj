@@ -35,7 +35,10 @@
   <Target Name="_GetNuspecDependencyPackageVersions">
     <MSBuild Targets="_GetPackageVersionInfo"
         BuildInParallel="$(BuildInParallel)"
-        Projects="../../Analyzers/src/Microsoft.AspNetCore.Components.Analyzers.csproj;../../../Security/Authorization/Core/src/Microsoft.AspNetCore.Authorization.csproj">
+        Projects="
+          ../../Analyzers/src/Microsoft.AspNetCore.Components.Analyzers.csproj;
+          ../../../JSInterop/Microsoft.JSInterop/src/Microsoft.JSInterop.csproj;
+          ../../../Security/Authorization/Core/src/Microsoft.AspNetCore.Authorization.csproj">
       <Output TaskParameter="TargetOutputs" ItemName="_ProjectPathWithVersion" />
     </MSBuild>
     <ItemGroup>
