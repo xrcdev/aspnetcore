@@ -41,6 +41,7 @@
     <ItemGroup>
       <NuspecProperty Include="@(_ProjectPathWithVersion->WithMetadataValue('PackageId', 'Microsoft.AspnetCore.Components.Analyzers')->'componentAnalyzerPackageVersion=%(PackageVersion)')" />
       <NuspecProperty Include="@(_ProjectPathWithVersion->WithMetadataValue('PackageId', 'Microsoft.AspnetCore.Authorization')->'authorizationPackageVersion=%(PackageVersion)')" />
+      <NuspecProperty Include="@(_ProjectPathWithVersion->WithMetadataValue('PackageId', 'Microsoft.JSInterop')->'jsInteropPackageVersion=%(PackageVersion)')" />
     </ItemGroup>
   </Target>
 
@@ -52,7 +53,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <NuspecProperty Include="jsInteropPackageVersion=$(MicrosoftJSInteropPackageVersion)" />
     <NuspecProperty Condition="'$(DotNetBuildFromSource)' != 'true'" Include="systemComponentModelAnnotationsPackageVersion=$(SystemComponentModelAnnotationsPackageVersion)" />
     <NuspecProperty Include="AssemblyName=$(AssemblyName)" />
     <NuspecProperty Include="OutputPath=$(OutputPath)" />

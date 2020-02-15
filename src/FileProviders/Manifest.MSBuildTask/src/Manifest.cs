@@ -5,15 +5,12 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Xml.Linq;
-using Microsoft.Extensions.FileProviders.Embedded.Manifest.Task.Internal;
 
 namespace Microsoft.Extensions.FileProviders.Embedded.Manifest.Task
 {
     public class Manifest
     {
-#pragma warning disable PUB0001 // Pubternal type IActivator in public API
         public Entry Root { get; set; } = Entry.Directory("");
-#pragma warning restore PUB0001 // Pubternal type IActivator in public API
 
         public void AddElement(string originalPath, string assemblyResourceName)
         {
