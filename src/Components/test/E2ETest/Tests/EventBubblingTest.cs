@@ -48,7 +48,6 @@ namespace Microsoft.AspNetCore.Components.E2ETest.Tests
         }
 
         [Fact]
-        [QuarantinedTest("https://github.com/dotnet/aspnetcore/issues/23366")]
         public void BubblingStandardEvent_FiredOnElementWithoutHandler()
         {
             Browser.Exists(By.Id("button-without-onclick")).Click();
@@ -164,7 +163,6 @@ namespace Microsoft.AspNetCore.Components.E2ETest.Tests
         }
 
         [Fact]
-        [QuarantinedTest("https://github.com/dotnet/aspnetcore/issues/23757")]
         public void PreventDefaultCanBlockKeystrokes()
         {
             // By default, the textbox accepts keystrokes

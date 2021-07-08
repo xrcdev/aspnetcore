@@ -4,6 +4,7 @@
 using System;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
+using System.Runtime.Versioning;
 using Microsoft.AspNetCore.Cryptography.Cng;
 using Microsoft.AspNetCore.DataProtection.AuthenticatedEncryption;
 using Microsoft.AspNetCore.DataProtection.AuthenticatedEncryption.ConfigurationModel;
@@ -47,6 +48,8 @@ namespace Microsoft.AspNetCore.DataProtection
             IKeyRingProvider keyringProvider;
             if (OSVersionUtil.IsWindows())
             {
+                // Assertion for platform compat analyzer
+                Debug.Assert(RuntimeInformation.IsOSPlatform(OSPlatform.Windows));
                 // Fastest implementation: AES-256-GCM [CNG]
                 keyringProvider = new EphemeralKeyRing<CngGcmAuthenticatedEncryptorConfiguration>(loggerFactory);
             }
@@ -62,6 +65,7 @@ namespace Microsoft.AspNetCore.DataProtection
             _dataProtectionProvider = new KeyRingBasedDataProtectionProvider(keyringProvider, loggerFactory);
         }
 
+        /// <inheritdoc />
         public IDataProtector CreateProtector(string purpose)
         {
             if (purpose == null)
